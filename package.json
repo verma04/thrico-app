@@ -13,7 +13,10 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@expo-google-fonts/work-sans": "^0.2.3",
     "@expo/vector-icons": "^14.0.0",
+    "@react-native-firebase/auth": "^18.9.0",
+    "@react-native-firebase/crashlytics": "^18.9.0",
     "@react-navigation/native": "^6.0.2",
     "expo": "~50.0.7",
     "expo-font": "~11.10.3",
