@@ -1,59 +1,139 @@
-import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
+import { router, Tabs } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import Colors from "@/constants/Colors";
+import { Entypo } from "@expo/vector-icons";
+import { FontAwesome6 } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
+import Constants from "expo-constants";
+import { Platform, Pressable } from "react-native";
+import { View } from "@/components/Themed";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Text } from "react-native-elements";
+import { Button } from "@rneui/themed";
+import { Stack } from "@rneui/layout";
 
-import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
-
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+import { AntDesign } from "@expo/vector-icons";
+import { Avatar } from "@rneui/base";
+const Layout = () => {
+  const headerHeight = 48;
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
+    <>
+      <Tabs
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: "#36348e",
+            height: 110,
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+          tabBarActiveTintColor: "#36348e",
+          tabBarIconStyle: {
+            fontSize: 10,
+          },
+
+          tabBarLabelStyle: {
+            fontFamily: "mon-sb",
+          },
         }}
-      />
-      <Tabs.Screen
-        name="two"
-        options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
-      />
-    </Tabs>
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            tabBarLabel: "Home",
+            headerTitle: "",
+
+            headerLeft: () => (
+              <Stack row align="center" spacing={20}>
+                <Avatar
+                  size={"small"}
+                  rounded
+                  source={{
+                    uri: "https://picsum.photos/id/237/200/300",
+                  }}
+                />
+              </Stack>
+            ),
+
+            headerRight: () => (
+              <Stack row align="center" spacing={8}>
+                <AntDesign name="search1" size={24} color="white" />
+                <MaterialIcons
+                  name="notifications-on"
+                  size={24}
+                  color="white"
+                />
+                <Avatar
+                  onPress={() => router.push("/(modal)/SwitchAmount")}
+                  size={"small"}
+                  rounded
+                  source={{
+                    uri: "https://picsum.photos/id/237/200/300",
+                  }}
+                />
+              </Stack>
+            ),
+
+            tabBarIcon: ({ size, color }) => (
+              <Entypo name="home" size={24} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="(events)"
+          options={{
+            headerTitle: "Events",
+            tabBarLabel: "Events",
+            headerShown: false,
+            tabBarIcon: ({ size, color }) => (
+              <FontAwesome6 name="calendar-day" size={23} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="trips"
+          options={{
+            tabBarLabel: "Groups",
+            tabBarIcon: ({ size, color }) => (
+              <FontAwesome5 name="people-arrows" size={20} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="inbox"
+          options={{
+            tabBarLabel: "Discussion",
+            tabBarIcon: ({ size, color }) => (
+              <MaterialCommunityIcons
+                name="message-outline"
+                size={24}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="profile"
+          options={{
+            tabBarLabel: "Profile",
+
+            headerShown: false,
+            tabBarIcon: ({ size, color }) => (
+              <Ionicons name="person-circle-outline" size={24} color={color} />
+            ),
+          }}
+        />
+      </Tabs>
+      {/* </View>
+        </SafeAreaView>
+      </View> */}
+    </>
   );
-}
+};
+
+export default Layout;

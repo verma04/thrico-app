@@ -1,18 +1,52 @@
-import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet } from 'react-native';
+import * as React from "react";
+import { StyleSheet, View, Text, Button } from "react-native";
+import * as Haptics from "expo-haptics";
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
-
-export default function ModalScreen() {
+export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Modal</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/modal.tsx" />
-
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+      <Text style={styles.text}>Haptics.selectionAsync</Text>
+      <View style={styles.buttonContainer}>
+        <Button title="Selection" onPress={() => Haptics.selectionAsync()} />
+      </View>
+      <Text style={styles.text}>Haptics.notificationAsync</Text>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Success"
+          onPress={() =>
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+          }
+        />
+        <Button
+          title="Error"
+          onPress={() =>
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
+          }
+        />
+        <Button
+          title="Warning"
+          onPress={() =>
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning)
+          }
+        />
+      </View>
+      <Text style={styles.text}>Haptics.impactAsync</Text>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Light"
+          onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)}
+        />
+        <Button
+          title="Medium"
+          onPress={() =>
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
+          }
+        />
+        <Button
+          title="Heavy"
+          onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)}
+        />
+      </View>
     </View>
   );
 }
@@ -20,16 +54,14 @@ export default function ModalScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: "center",
+    paddingHorizontal: 16,
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  buttonContainer: {
+    flexDirection: "row",
+    alignItems: "stretch",
+    marginTop: 10,
+    marginBottom: 30,
+    justifyContent: "space-between",
   },
 });
